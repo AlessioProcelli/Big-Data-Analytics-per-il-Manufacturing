@@ -1,0 +1,227 @@
+
+services:   
+
+  refrigeration-plant:
+    build:
+      context: ./services/refrigeration
+      dockerfile: Dockerfile  # Usa il Dockerfile che abbiamo creato
+    container_name: refrigeration-plant
+    environment:
+      - BROKER=mqtt-broker
+      - PORT=1883
+      - TOPIC=impianto_refrigerazione/monitoraggio
+      - TEMPERATURE_TARGET=25
+      - DAY_TEMP_RANGE="20,30"
+      - NIGHT_TEMP_RANGE="15,25"
+      - MAX_FLOW=20.0
+      - ENERGY_COOLING=10.5
+      - ENERGY_HEATING=10.2
+      - SIMULATION_INTERVAL=5
+    volumes:
+      - ./services/refrigeration:/app 
+      - ./log:/log
+    networks:
+      - mqtt-network
+    depends_on:
+      - mqtt-broker  # Dipende dal broker MQTT
+
+  mqtt-broker: 
+    image: eclipse-mosquitto:latest
+    container_name: mqtt-broker
+    ports:
+      - "1883:1883"  # Mappa la porta 1883 del container alla porta 1883 
+    volumes:
+      - ./config/mqttBroker.conf:/mosquitto/config/mosquitto.conf  # Mappa il file di configurazione personalizzato di Mosquitto
+    networks:
+      - mqtt-network  # Connessione alla rete 'mqtt-network'
+
+  # Servizio MQTT Exporter per Prometheus
+  mqtt-exporter:
+    image: kpetrem/mqtt-exporter  # Immagine stabile della community
+    container_name: mqtt-exporter
+    environment:
+      - MQTT_ADDRESS=mqtt-broker       # Indirizzo del broker MQTT
+      - MQTT_PORT=1883                 # Porta del broker MQTT
+      - MQTT_TOPIC=impianto_refrigerazione/monitoraggio  # Sottoscrivi al topic dell'impianto di refrigerazione
+      - MQTT_KEEPALIVE=200             # Imposta il keepalive a 200 secondi
+      - PROMETHEUS_PORT=9101           # Porta per esporre le metriche di Prometheus
+      - LOG_LEVEL=INFO                 # Livello di log
+    ports:
+      - "9101:9101"  # Porta per Prometheus
+    networks:
+      - mqtt-network
+    depends_on:
+      - mqtt-broker  # Dipende dal broker MQTT
+    
+ 
+    
+  tornio1-opcua:
+    build: 
+      context: ./services/tornio-simulato
+    container_name: tornio1-opcua
+    environment:
+      - MACHINE_URL=opc.tcp://0.0.0.0:4840/
+      - MACHINE_NAMESPACE=Tornio_OPC-UA
+      - SPINDLE_SPEED=120  
+      - FEED_RATE=0.7  
+      - LATHE_NAME=tornio1
+    ports:
+      - "4840:4840"
+    networks:
+      - opcua-network
+    volumes:
+      - ./services/tornio-simulato:/app 
+      - ./log:/log
+   
+  tornio2-opcua:
+    build: 
+      context: ./services/tornio-simulato
+    container_name: tornio2-opcua
+    environment:
+      - MACHINE_URL=opc.tcp://0.0.0.0:4840/
+      - MACHINE_NAMESPACE=Tornio_OPC-UA
+      - SPINDLE_SPEED=120  # Velocità mandrino in RPM
+      - FEED_RATE=0.7  # Avanzamento utensile in mm/s
+      - LATHE_NAME=tornio2
+    ports:
+      - "4841:4840"
+    networks:
+      - opcua-network
+    volumes:
+      - ./services/tornio-simulato:/app 
+      - ./log:/log
+   
+
+  opcua-exporter:
+    build:
+      context: ./services/opcua-exporter
+    container_name: opcua-exporter
+    environment:
+      - MACHINE_SERVER_URL=opc.tcp://tornio1-opcua:4840
+      - MAX_RETRIES=2
+      - RETRY_DELAY=10
+      - EXPORT_PORT=9102
+      - MACHINE_NAME=Tornio1
+    ports:
+      - "9102:9102"
+    networks:
+      - opcua-network
+    depends_on:
+      - tornio1-opcua 
+    volumes:
+      - ./services/opcua-exporter:/app
+      - ./log:/log
+   
+  opcua-exporter2:
+    build:
+      context: ./services/opcua-exporter
+    container_name: opcua-exporter2
+    environment:
+      - MACHINE_SERVER_URL=opc.tcp://tornio2-opcua:4840
+      - MAX_RETRIES=2
+      - RETRY_DELAY=10
+      - EXPORT_PORT=9102
+      - MACHINE_NAME=Tornio2
+    ports:
+      - "9103:9102"
+    networks:
+      - opcua-network
+    depends_on:
+      - tornio2-opcua 
+    volumes:
+      - ./services/opcua-exporter:/app
+      - ./log:/log
+
+      
+  # Servizio Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"  # Porta di Prometheus per l'interfaccia web
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml  # Mappa la configurazione di Prometheus
+      - prometheus-data:/prometheus 
+    networks:
+      - mqtt-network  # Connessione alla rete 'mqtt-network'
+      - opcua-network
+      - data-collection-network
+      
+  mimir:
+    image: grafana/mimir:latest
+    container_name: mimir
+    command:
+      - "-config.file=/etc/mimir/mimir.yml"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./config/mimir.yml:/etc/mimir/mimir.yml
+      - mimir-data:/data
+    ports:
+      - "9009:9009" # Porta HTTP di Mimir
+    networks:
+      - data-collection-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin   # Puoi cambiare questa password
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mimir   # Grafana dipende da Mimir
+    networks:
+      - data-collection-network
+      - logging-network
+    volumes:
+      - grafana-data:/var/lib/grafana   # Persistenza dei dati
+      
+  promtail:
+    container_name: promtail
+    image: grafana/promtail:latest
+    volumes:
+      - ./config/promtail/promtail-config.yml:/etc/promtail/promtail.yml  
+      - ./config/promtail/positions:/var/lib/promtail
+      - ./log:/log
+    command: -config.file=/etc/promtail/promtail.yml
+    networks:
+      - logging-network
+    depends_on:
+      - loki
+    
+    
+  loki:
+    container_name: loki
+    image: grafana/loki:latest
+    environment:
+      - LOKI_PORT=3100
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - logging-network
+
+    
+networks:
+  mqtt-network:
+    driver: bridge 
+  opcua-network:
+    driver: bridge  
+  data-collection-network:
+    driver: bridge
+  logging-network:
+    driver: bridge
+  preditive-network:
+    driver: bridge
+
+  
+  
+
+volumes:
+  mimir-data:
+  grafana-data:
+  prometheus-data:
+  loki-data:
+  mqtt-data:
+  

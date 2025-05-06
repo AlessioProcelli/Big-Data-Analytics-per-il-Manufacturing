@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  # Servizio Mosquitto (broker MQTT)
+  mqtt-broker:
+    image: eclipse-mosquitto:latest
+    container_name: mqtt-broker
+    ports:
+      - "1883:1883"  # Mappa la porta 1883 del container alla porta 1883 del tuo host
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf  # Mappa il file di configurazione personalizzato di Mosquitto
+    networks:
+      - mqtt-network  # Connessione alla rete 'mqtt-network'
+
+  # Servizio MQTT Exporter per Prometheus
+  mqtt-exporter:
+    image: kpetrem/mqtt-exporter  # Immagine stabile della community
+    container_name: mqtt-exporter
+    environment:
+      - MQTT_ADDRESS=mqtt-broker       # Indirizzo del broker MQTT
+      - MQTT_PORT=1883                 # Porta del broker MQTT
+      - MQTT_TOPIC=#                   # Sottoscrivi a tutti i topic
+      - MQTT_KEEPALIVE=200              # Imposta il keepalive a 60 secondi
+      - PROMETHEUS_PORT=9101           # Porta di esporzione delle metriche di Prometheus
+      - LOG_LEVEL=INFO                 # Livello di log
+    ports:
+      - "9101:9101"  # Porta per Prometheus
+    networks:
+      - mqtt-network
+    depends_on:
+      - mqtt-broker
+    
+  
+  opcua-server:
+    build: 
+      context: ./opcua-server
+    container_name: opcua-server
+    ports:
+      - "4840:4840"
+    networks:
+      - mqtt-network
+
+  opcua-exporter:
+    build:
+      context: ./opcua-exporter
+    container_name: opcua-exporter
+    ports:
+      - "9102:9102"
+    networks:
+      - mqtt-network
+    depends_on:
+      - opcua-server    
+      
+  # Servizio Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"  # Porta di Prometheus per l'interfaccia web
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Mappa la configurazione di Prometheus
+    networks:
+      - mqtt-network  # Connessione alla rete 'mqtt-network'
+      
+  mimir:
+    image: grafana/mimir:latest
+    container_name: mimir
+    command:
+      - "-config.file=/etc/mimir/mimir.yml"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./mimir.yml:/etc/mimir/mimir.yml
+      - mimir_data:/data
+    ports:
+      - "9009:9009" # Porta HTTP di Mimir
+    networks:
+      - mqtt-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin   # Puoi cambiare questa password
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mimir   # Grafana dipende da Mimir
+    networks:
+      - mqtt-network
+    volumes:
+      - grafana-data:/var/lib/grafana   # Persistenza dei dati
+
+
+    
+networks:
+  mqtt-network:
+    driver: bridge  # Usa una rete 'bridge' tra i container
+
+volumes:
+  mimir_data:
+  grafana-data:
+    driver: local

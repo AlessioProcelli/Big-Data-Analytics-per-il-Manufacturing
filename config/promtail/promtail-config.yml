@@ -1,0 +1,36 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /var/lib/promtail/positions.yaml  
+
+clients:
+  - url: "http://loki:3100/loki/api/v1/push"  
+scrape_configs:
+  - job_name: "tornio-logs"
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: "tornio-log"
+          host: "docker"
+          __path__: /log/tornio.log  
+         
+  - job_name: "exporter-logs"
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: "exporter-log"
+          host: "docker"
+          __path__: /log/opcua-exporter.log  
+  
+  - job_name: "refrigeration-logs"
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: "refrigeration-log"
+          host: "docker"
+          __path__: /log/refrigeration.log  

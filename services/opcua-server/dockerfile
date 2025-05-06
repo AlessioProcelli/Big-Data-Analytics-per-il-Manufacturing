@@ -1,0 +1,5 @@
+FROM python:3.9
+WORKDIR /app
+COPY opcua-server.py .
+RUN pip install opcua
+CMD ["python", "opcua-server.py"]

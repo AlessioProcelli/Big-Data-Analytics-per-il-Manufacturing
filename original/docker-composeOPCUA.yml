@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  opcua-server:
+    build: 
+      context: ./opcua-server
+    container_name: opcua-server
+    ports:
+      - "4840:4840"
+    networks:
+      - mqtt-network
+    volumes:
+      - ./opcua-server:/app  # Monta il codice direttamente nel container
+
+  opcua-exporter:
+    build:
+      context: ./opcua-exporter
+    container_name: opcua-exporter
+    ports:
+      - "9102:9102"
+    networks:
+      - mqtt-network
+    depends_on:
+      - opcua-server    
+    volumes:
+      - ./opcua-exporter:/app
+    
+networks:
+  mqtt-network:
+    driver: bridge  # Usa una rete 'bridge' tra i container

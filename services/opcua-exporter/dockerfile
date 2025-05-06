@@ -1,0 +1,5 @@
+FROM python:3.9
+WORKDIR /app
+COPY opcua-exporter.py .
+RUN pip install opcua prometheus_client
+CMD ["python", "opcua-exporter.py"]

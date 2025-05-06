@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  promtail:
+    container_name: promtail
+    image: grafana/promtail:latest
+    volumes:
+      - ./promtail-config.yml:/etc/promtail/promtail.yml  # Montiamo la configurazione
+      - ./tmp/:/tmp/  # Montiamo il file di log
+      - ./positions:/var/lib/promtail
+    command: -config.file=/etc/promtail/promtail.yml
+    depends_on:
+      - loki
+    
+    
+  loki:
+    container_name: loki
+    image: grafana/loki:latest
+    environment:
+      - LOKI_PORT=3100
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+   
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin   # Puoi cambiare questa password
+    ports:
+      - "3000:3000"

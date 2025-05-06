@@ -1,0 +1,154 @@
+2025-03-17 11:18:39,254 - INFO - Tentativo 1 di connessione a opc.tcp://tornio-opcua:4840/...
+2025-03-17 11:18:39,256 - INFO - opening connection
+2025-03-17 11:18:41,955 - INFO - Thread started
+2025-03-17 11:18:41,959 - INFO - received header: Header(type:b'ACK', chunk_type:b'F', body_size:20, channel:0)
+2025-03-17 11:18:41,960 - INFO - open_secure_channel
+2025-03-17 11:18:41,962 - INFO - received header: Header(type:b'OPN', chunk_type:b'F', body_size:123, channel:8)
+2025-03-17 11:18:41,962 - INFO - create_session
+2025-03-17 11:18:41,964 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:530, channel:8)
+2025-03-17 11:18:41,979 - INFO - activate_session
+2025-03-17 11:18:41,980 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:84, channel:8)
+2025-03-17 11:18:42,018 - INFO - read
+2025-03-17 11:18:42,019 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:42,021 - INFO - read
+2025-03-17 11:18:42,022 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:42,024 - INFO - read
+2025-03-17 11:18:42,026 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:42,028 - INFO - read
+2025-03-17 11:18:42,029 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:42,032 - INFO - read
+2025-03-17 11:18:42,033 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:42,035 - INFO - read
+2025-03-17 11:18:42,036 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:42,038 - INFO - read
+2025-03-17 11:18:42,039 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:63, channel:8)
+2025-03-17 11:18:42,042 - INFO - read
+2025-03-17 11:18:42,043 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:47,045 - INFO - read
+2025-03-17 11:18:47,050 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:47,055 - INFO - read
+2025-03-17 11:18:47,057 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:47,059 - INFO - read
+2025-03-17 11:18:47,061 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:47,063 - INFO - read
+2025-03-17 11:18:47,064 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:47,066 - INFO - read
+2025-03-17 11:18:47,067 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:47,069 - INFO - read
+2025-03-17 11:18:47,070 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:47,072 - INFO - read
+2025-03-17 11:18:47,074 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:63, channel:8)
+2025-03-17 11:18:47,076 - INFO - read
+2025-03-17 11:18:47,077 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:52,080 - INFO - read
+2025-03-17 11:18:52,084 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:52,088 - INFO - read
+2025-03-17 11:18:52,090 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:52,093 - INFO - read
+2025-03-17 11:18:52,094 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:52,096 - INFO - read
+2025-03-17 11:18:52,097 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:52,100 - INFO - read
+2025-03-17 11:18:52,101 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:52,103 - INFO - read
+2025-03-17 11:18:52,104 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:52,106 - INFO - read
+2025-03-17 11:18:52,107 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:63, channel:8)
+2025-03-17 11:18:52,109 - INFO - read
+2025-03-17 11:18:52,110 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:57,113 - INFO - read
+2025-03-17 11:18:57,117 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:57,121 - INFO - read
+2025-03-17 11:18:57,123 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:57,125 - INFO - read
+2025-03-17 11:18:57,126 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:57,128 - INFO - read
+2025-03-17 11:18:57,129 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:57,131 - INFO - read
+2025-03-17 11:18:57,132 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:57,134 - INFO - read
+2025-03-17 11:18:57,135 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:18:57,137 - INFO - read
+2025-03-17 11:18:57,139 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:63, channel:8)
+2025-03-17 11:18:57,141 - INFO - read
+2025-03-17 11:18:57,142 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:02,146 - INFO - read
+2025-03-17 11:19:02,150 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:02,155 - INFO - read
+2025-03-17 11:19:02,156 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:02,159 - INFO - read
+2025-03-17 11:19:02,161 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:02,162 - INFO - read
+2025-03-17 11:19:02,163 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:02,165 - INFO - read
+2025-03-17 11:19:02,166 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:02,168 - INFO - read
+2025-03-17 11:19:02,169 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:02,171 - INFO - read
+2025-03-17 11:19:02,172 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:63, channel:8)
+2025-03-17 11:19:02,174 - INFO - read
+2025-03-17 11:19:02,176 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:07,178 - INFO - read
+2025-03-17 11:19:07,183 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:07,187 - INFO - read
+2025-03-17 11:19:07,188 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:07,191 - INFO - read
+2025-03-17 11:19:07,193 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:07,195 - INFO - read
+2025-03-17 11:19:07,195 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:07,197 - INFO - read
+2025-03-17 11:19:07,199 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:07,201 - INFO - read
+2025-03-17 11:19:07,202 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:07,204 - INFO - read
+2025-03-17 11:19:07,205 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:63, channel:8)
+2025-03-17 11:19:07,208 - INFO - read
+2025-03-17 11:19:07,209 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:12,212 - INFO - read
+2025-03-17 11:19:12,214 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:12,218 - INFO - read
+2025-03-17 11:19:12,220 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:12,222 - INFO - read
+2025-03-17 11:19:12,223 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:12,226 - INFO - read
+2025-03-17 11:19:12,227 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:12,229 - INFO - read
+2025-03-17 11:19:12,230 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:12,232 - INFO - read
+2025-03-17 11:19:12,233 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:12,235 - INFO - read
+2025-03-17 11:19:12,236 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:63, channel:8)
+2025-03-17 11:19:12,238 - INFO - read
+2025-03-17 11:19:12,240 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:17,243 - INFO - read
+2025-03-17 11:19:17,244 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:17,247 - INFO - read
+2025-03-17 11:19:17,248 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:17,250 - INFO - read
+2025-03-17 11:19:17,252 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:17,254 - INFO - read
+2025-03-17 11:19:17,256 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:17,260 - INFO - read
+2025-03-17 11:19:17,262 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:17,264 - INFO - read
+2025-03-17 11:19:17,265 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:17,267 - INFO - read
+2025-03-17 11:19:17,268 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:63, channel:8)
+2025-03-17 11:19:17,270 - INFO - read
+2025-03-17 11:19:17,271 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:22,274 - INFO - read
+2025-03-17 11:19:22,279 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:22,282 - INFO - read
+2025-03-17 11:19:22,284 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:22,287 - INFO - read
+2025-03-17 11:19:22,289 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:22,290 - INFO - read
+2025-03-17 11:19:22,292 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:22,294 - INFO - read
+2025-03-17 11:19:22,295 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:22,297 - INFO - read
+2025-03-17 11:19:22,298 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
+2025-03-17 11:19:22,301 - INFO - read
+2025-03-17 11:19:22,302 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:63, channel:8)
+2025-03-17 11:19:22,304 - INFO - read
+2025-03-17 11:19:22,305 - INFO - received header: Header(type:b'MSG', chunk_type:b'F', body_size:70, channel:8)
